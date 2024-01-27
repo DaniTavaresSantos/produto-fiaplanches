@@ -46,7 +46,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
+
+    - name: Execution Tests Maven
       run: mvn test --file pom.xml
 
     # - name: Configure AWS credentials
