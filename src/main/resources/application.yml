@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5434/fiap-lanches-product}
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/fiap-lanches-product}
     username: ${SPRING_DATASOURCE_USERNAME:admin}
     password: ${SPRING_DATASOURCE_PASSWORD:admin123}
   jpa:
