@@ -3,6 +3,7 @@ package br.com.fiaplanchesproduct.application.usecases;
 import br.com.fiaplanchesproduct.application.dtos.ProductDto;
 import br.com.fiaplanchesproduct.application.ports.out.ProductRepositoryPortOut;
 import br.com.fiaplanchesproduct.domain.enums.Category;
+import br.com.fiaplanchesproduct.infra.exception.handler.ProductBusinessException;
 
 import java.util.List;
 
@@ -15,7 +16,7 @@ public class FindProductByCategoryUseCase {
 
     public List<ProductDto> findProductByCategory(Category category) {
         return productRepositoryPortOut.findProductByCategory(category).orElseThrow(
-                () -> new RuntimeException("Nenhum produto encontrado")
+                () -> new ProductBusinessException("Nenhum produto encontrado")
         );
     }
 }

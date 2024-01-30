@@ -2,6 +2,7 @@ package br.com.fiaplanchesproduct.application.usecases;
 
 import br.com.fiaplanchesproduct.application.dtos.ProductDto;
 import br.com.fiaplanchesproduct.application.ports.out.ProductRepositoryPortOut;
+import br.com.fiaplanchesproduct.infra.exception.handler.ProductBusinessException;
 import jakarta.persistence.EntityNotFoundException;
 
 public class DeleteProductUseCase {
@@ -14,7 +15,7 @@ public class DeleteProductUseCase {
 
     public void deleteProduct(Long id) {
         ProductDto productDto = productRepositoryPortOut.findProductById(id).orElseThrow(
-                () -> new EntityNotFoundException("Produto não encontrado")
+                () -> new ProductBusinessException("Produto não encontrado")
         );
         productRepositoryPortOut.deleteProduct(productDto);
     }
