@@ -1,4 +1,4 @@
-package br.com.fiaplanchesproduct.test.glue;
+package br.com.fiaplanchesproduct.bdd;
 
 import javax.sql.DataSource;
 
@@ -18,7 +18,6 @@ import io.cucumber.spring.CucumberContextConfiguration;
 
 @CucumberContextConfiguration
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
-@ActiveProfiles("bddtest")
 public class SpringBootTestLoader {
     static PostgreSQLContainer postgresContainer;
 
@@ -28,8 +27,7 @@ public class SpringBootTestLoader {
     @BeforeAll
     public static void setup() {
         System.out.println("starting DB");
-        DockerImageName myImage = DockerImageName.parse("fiap-lanches-product-database").asCompatibleSubstituteFor("postgres");
-        postgresContainer = new PostgreSQLContainer(myImage)
+        postgresContainer = new PostgreSQLContainer("postgres")
                 .withDatabaseName("fiap-lanches-product")
                 .withUsername("admin")
                 .withPassword("admin123");

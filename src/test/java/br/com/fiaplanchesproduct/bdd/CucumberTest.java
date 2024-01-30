@@ -1,4 +1,4 @@
-package br.com.fiaplanchesproduct.test;
+package br.com.fiaplanchesproduct.bdd;
 
 
 import org.junit.platform.suite.api.IncludeEngines;
@@ -8,5 +8,5 @@ import org.junit.platform.suite.api.Suite;
 @Suite
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
-public class RunCucumberTest {
+public class CucumberTest {
 }
