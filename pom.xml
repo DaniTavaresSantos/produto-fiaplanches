@@ -17,6 +17,9 @@
         <java.version>17</java.version>
         <testcontainers.version>1.19.0</testcontainers.version>
         <aspectj.version>1.9.19</aspectj.version>
+        <java.version>17</java.version>
+        <sonar.organization>danitavaressantos</sonar.organization>
+        <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
     <dependencyManagement>
