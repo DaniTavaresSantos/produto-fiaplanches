@@ -1,6 +1,7 @@
 package br.com.fiaplanchesproduct.domain;
 
 import br.com.fiaplanchesproduct.domain.enums.Category;
+import br.com.fiaplanchesproduct.generated.Generated;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -12,6 +13,7 @@ public class Product {
     private BigDecimal preco;
     private Category category;
 
+    @Generated
     public Product() {
     }
 
@@ -54,6 +56,7 @@ public class Product {
         this.category = category;
     }
 
+    @Generated
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,6 +65,7 @@ public class Product {
         return Objects.equals(id, product.id) && Objects.equals(nomeProduto, product.nomeProduto) && Objects.equals(preco, product.preco) && category == product.category;
     }
 
+    @Generated
     @Override
     public int hashCode() {
         return Objects.hash(id, nomeProduto, preco, category);

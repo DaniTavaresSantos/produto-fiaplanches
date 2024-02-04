@@ -9,6 +9,7 @@ import br.com.fiaplanchesproduct.domain.enums.Category;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,7 +46,7 @@ public class ProductController {
         return ResponseEntity.ok(productDtos.stream().map(ResponseProductDto::toResponseProductDto).toList());
     }
 
-    @GetMapping("/find/ids")
+    @GetMapping("/find")
     public ResponseEntity<List<ResponseProductDto>> findProductsByIds(@RequestParam @Valid List<Long> ids) {
         List<ProductDto> productDtos = findProductsByIdsUseCases.findProductsByIds(ids);
         return ResponseEntity.ok(productDtos.stream().map(ResponseProductDto::toResponseProductDto).toList());
@@ -64,6 +65,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @Transactional
     public ResponseEntity<String> removeProduto(@PathVariable @Valid Long id) {
         deleteProductUseCase.deleteProduct(id);
         return ResponseEntity.ok("Produto removido com sucesso!");
