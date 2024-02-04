@@ -12,12 +12,26 @@ Funcionalidade: Criar Produto na base de Dados
     Quando for realizada a chamada no endpoint de busca de produto por categoria
     Entao o produto deve ser localizado com sucesso na base
 
+  Cenario: : 02 - Buscar produtos na base com sucesso
+    Dado o produto Hamburguer e preco 10.00 e Categoria LANCHE
+    E o produto deve ser localizado com sucesso na base
+    Dado o segundo produto Coca e preco 12.00 e Categoria BEBIDA
+    E o segundo produto deve ser localizado com sucesso na base
+    Quando for realizada a chamada no endpoint de busca de produto por ids
+    Entao o produto deve ser localizado com sucesso na base
+
   Cenario: : 03 - Atualizar produto na base com sucesso
-    Dado o produto Coca de Id 2 e preco 12.00 e Categoria BEBIDA
+    Dado o produto Coca e preco 12.00 e Categoria BEBIDA
     E o produto deve ser localizado com sucesso na base
     E o produto será alterado para Coca de Preco 14.00 e Categoria BEBIDA
     Quando for realizada a chamada no endpoint de atualizar produto
     Entao o produto deve ser localizado com sucesso na base
+
+  Cenario: : 04 - Deletar produto na base com sucesso
+    Dado o produto Coca e preco 12.00 e Categoria BEBIDA
+    E o produto deve ser localizado com sucesso na base
+    Quando for realizada a chamada no endpoint de deletar produto
+    Entao o produto deve não deve ser localizado na base
 
 
 

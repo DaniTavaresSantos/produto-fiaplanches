@@ -2,6 +2,7 @@ package br.com.fiaplanchesproduct.infra.repository.entity;
 
 import br.com.fiaplanchesproduct.application.dtos.ProductDto;
 import br.com.fiaplanchesproduct.domain.enums.Category;
+import br.com.fiaplanchesproduct.generated.Generated;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,6 +15,7 @@ import java.math.BigDecimal;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Generated
 public class ProductEntity {
 
     @Id

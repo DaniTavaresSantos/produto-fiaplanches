@@ -14,14 +14,17 @@ import io.cucumber.java.pt.Quando;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 import static io.restassured.RestAssured.given;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class StepDefinition {
@@ -32,6 +35,8 @@ public class StepDefinition {
     private Response response;
 
     private ProductDto productDto;
+
+    private ProductDto secondProductDto;
 
     private ProductDto newProductDto;
 
@@ -56,6 +61,7 @@ public class StepDefinition {
         productRepository.saveAll(List.of(p1, p2, p3, p4));
 
         System.out.println("data Included.....");
+        System.out.println("Id of Objects Included: " + p1.getId() + ", " + p2.getId() + ", " + p3.getId() + ", "  );
     }
 
     @Dado("o produto {word} de Id {int} e preco {double} e Categoria {word}")
@@ -100,7 +106,12 @@ public class StepDefinition {
 
         var product = productEntityList.stream().filter(x -> x.getCategory() == productDto.category()).findFirst();
 
-        System.out.println(product.get().getCategory());
+        System.out.println(product.get().getCategory() + " Id = " + product.get().getId().toString());
+
+        productDto.toProduct().setId(product.get().getId());
+        productDto = new ProductDto(product.get().getId(), productDto.nomeProduto(), productDto.preco(), productDto.category());
+
+        System.out.println(productDto.category() + " Id novo = " + productDto.id());
 
         assertEquals(productDto.category(), product.get().getCategory());
     }
@@ -108,9 +119,9 @@ public class StepDefinition {
     @Quando("for realizada a chamada no endpoint de atualizar produto")
     public void forRealizadaAChamadaNoEndpointDeAtualizarProduto() {
 
-        var url = ENDPOINT + "/update/" + 1;
+        var url = ENDPOINT + "/update/" + productDto.id();
 
-        System.out.println(url);
+        System.out.println("Printando url" + url);
 
         response =
                 given()
@@ -127,5 +138,79 @@ public class StepDefinition {
     public void oProdutoSeráAlteradoParaCocaDePrecoECategoriaBEBIDA(String produto, double preco, String categoria) {
         newProductDto = new ProductDto(productDto.id(), produto, new BigDecimal(preco), Category.valueOf(categoria));
 
+    }
+
+    @Dado("o produto {word} e preco {double} e Categoria {word}")
+    public void oProdutoCocaEPrecoECategoriaBEBIDA(String produto, double preco, String categoria) {
+        productDto = new ProductDto(1L, produto, new BigDecimal(preco), Category.valueOf(categoria));
+    }
+
+    @Quando("for realizada a chamada no endpoint de deletar produto")
+    public void forRealizadaAChamadaNoEndpointDeDeletarProduto() {
+
+        var url = ENDPOINT + "/delete/" + productDto.id();
+
+        System.out.println("Printando url" + url);
+
+        response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .when()
+                        .delete(url);
+
+        response.then().assertThat().statusCode(HttpStatus.OK.value());
+    }
+
+    @Entao("o produto deve não deve ser localizado na base")
+    public void oProdutoDeveNãoDeveSerLocalizadoComSucessoNaBase() {
+
+        Optional<ProductEntity> productResult = productRepository.findById(productDto.id());
+
+        assertTrue(productResult.isEmpty());
+
+    }
+
+    @E("o segundo produto {word} de Id {int} e preco {double} e Categoria {word}")
+    public void oSegundoProdutoHamburguerDeIdEPrecoECategoriaLANCHE(String produto, int id, double preco, String categoria ) {
+        secondProductDto = new ProductDto((long) id, produto, new BigDecimal(preco), Category.valueOf(categoria));
+    }
+
+    @Quando("for realizada a chamada no endpoint de busca de produto por ids")
+    public void forRealizadaAChamadaNoEndpointDeBuscaDeProdutoPorIds() {
+
+        var url = ENDPOINT + "/find?ids=" + productDto.id() + "," + secondProductDto.id();
+
+        System.out.println("Printando url: " + url);
+
+        response =
+                given()
+                        .contentType(ContentType.JSON)
+                        .accept(ContentType.JSON)
+                        .when()
+                        .get(url);
+
+        response.then().assertThat().statusCode(HttpStatus.OK.value());
+    }
+
+    @Dado("o segundo produto {word} e preco {double} e Categoria {word}")
+    public void oSegundoProdutoCocaEPrecoECategoriaBEBIDA(String produto, double preco, String categoria) {
+        secondProductDto = new ProductDto(1L, produto, new BigDecimal(preco), Category.valueOf(categoria));
+    }
+
+    @E("o segundo produto deve ser localizado com sucesso na base")
+    public void oSegundoProdutoDeveSerLocalizadoComSucessoNaBase() {
+        List<ProductEntity> productEntityList = productRepository.findByCategory(secondProductDto.category());
+
+        var product = productEntityList.stream().filter(x -> x.getCategory() == secondProductDto.category()).findFirst();
+
+        System.out.println(product.get().getCategory() + "Segundo produto Id = " + product.get().getId().toString());
+
+        secondProductDto.toProduct().setId(product.get().getId());
+        secondProductDto = new ProductDto(product.get().getId(), secondProductDto.nomeProduto(), secondProductDto.preco(), secondProductDto.category());
+
+        System.out.println(secondProductDto.category() + "Segundo produto Id novo = " + secondProductDto.id());
+
+        assertEquals(secondProductDto.category(), product.get().getCategory());
     }
 }
