@@ -1,4 +1,4 @@
-# Projeto de conta
+# Projeto do Produto
 
 Este é o repositório do Projeto Produto fiaplanches, uma aplicação incrível desenvolvida pela equipe Grupo 48. Esse projeto consiste em uma aplicação web que fornece serviços relacionados a lanchonete FiapLanches que está informatizando seus processos onde este microServiço é responsável especificamente pelo contexto de Produto dessa Lanchonete
 
@@ -9,7 +9,7 @@ Para executar o projeto localmente, siga as instruções abaixo:
 1. Clone este repositório em sua máquina local:
 
    ```shell
-   git clone https://github.com/DaniTavaresSantos/product-fiaplanches.git
+   git clone https://github.com/DaniTavaresSantos/produto-fiaplanches.git
    ```
 
 2. Rode o comando de dockerCompose na raíz do projeto para subir os serviços e a infra relacionados a este microserviço:
