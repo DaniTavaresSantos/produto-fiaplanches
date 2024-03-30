@@ -1,4 +1,4 @@
-# Projeto de conta
+# Projeto do Produto
 
 Este é o repositório do Projeto Produto fiaplanches, uma aplicação incrível desenvolvida pela equipe Grupo 48. Esse projeto consiste em uma aplicação web que fornece serviços relacionados a lanchonete FiapLanches que está informatizando seus processos onde este microServiço é responsável especificamente pelo contexto de Produto dessa Lanchonete
 
