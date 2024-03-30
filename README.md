@@ -9,7 +9,7 @@ Para executar o projeto localmente, siga as instruções abaixo:
 1. Clone este repositório em sua máquina local:
 
    ```shell
-   git clone https://github.com/DaniTavaresSantos/produto-fiaplanches.git
+   git clone https://github.com/DaniTavaresSantos/product-fiaplanches.git
    ```
 
 2. Rode o comando de dockerCompose na raíz do projeto para subir os serviços e a infra relacionados a este microserviço:
